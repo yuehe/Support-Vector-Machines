@@ -1,0 +1,53 @@
+param n;
+
+param b;
+
+param x{i in{1...n}, j in{1...4} };
+
+param y{i in{1...n}};
+
+var w{i in{1...4}};
+
+# objective function
+
+minimize obj: 1/2 * sum{i in{1...4}}( w[i]^2 );
+
+subject to:{i in {1...n}}:  y[i] * ( sum{j in {1...4}} ( w[j] * x[i,j] ) + b ) >= 1;
+
+##########
+
+n = 100;
+
+b = 20; %% b = 5;
+
+
+
+
+################
+# nonlinear separable
+
+
+param n;
+
+param b;
+
+param c; % Big M;
+
+param s{i in{1...n}}; % slack;
+
+param x{i in{1...n}, j in{1...4} };
+
+param y{i in{1...n}};
+
+var w{i in{1...4}};
+
+# objective function
+
+minimize obj: 1/2 * sum{i in{1...4}}( w[i]^2 ) + c * sum{i in {1...n}}( s[i] ) ;
+
+subject to:{i in {1...n}}:  y[i] * ( sum{j in {1...4}} ( w[j] * x[i,j] ) + b ) >= 1 - s[i];
+
+
+
+
+
